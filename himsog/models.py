@@ -1,5 +1,6 @@
 from django.db import models
 from django.template.defaultfilters import slugify
+from django.utils import timezone
 
 
 class Category(models.Model):
@@ -9,7 +10,7 @@ class Category(models.Model):
 
     def save(self, *args, **kwargs):
         self.slug_name = slugify(self.name)
-        super(Category, self).save(*args, **kwargs)
+        return super(Category, self).save(*args, **kwargs)
 
 
 class Comment(models.Model):
@@ -33,7 +34,13 @@ class Content(models.Model):
     description = models.TextField()
     images = models.ManyToManyField(ContentImage)
     comments = models.ManyToManyField(Comment)
-    create_time = models.DateTimeField(auto_now_add=True)
-    modified_time = models.DateTimeField(auto_now=True)
-    views = models.IntegerField()
-    rating = models.FloatField()
+    created = models.DateTimeField()
+    modified = models.DateTimeField()
+    views = models.IntegerField(default=0)
+    rating = models.FloatField(default=0)
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.created = timezone.now()
+        self.modified = timezone.now()
+        return super(Content, self).save(*args, **kwargs)
