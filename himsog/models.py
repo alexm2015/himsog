@@ -8,14 +8,14 @@ class Category(models.Model):
     slug_name = models.SlugField()
 
     def save(self, *args, **kwargs):
-        self.slug_name = slugify
+        self.slug_name = slugify(self.name)
         super(Category, self).save(*args, **kwargs)
 
 
 class Comment(models.Model):
 
     comment = models.TextField()
-    type = models.IntegerField()
+    comment_type = models.IntegerField()
 
 
 class ContentImage(models.Model):
@@ -33,3 +33,7 @@ class Content(models.Model):
     description = models.TextField()
     images = models.ManyToManyField(ContentImage)
     comments = models.ManyToManyField(Comment)
+    create_time = models.DateTimeField(auto_now_add=True)
+    modified_time = models.DateTimeField(auto_now=True)
+    views = models.IntegerField()
+    rating = models.FloatField()
