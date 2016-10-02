@@ -10,8 +10,4 @@ homepatterns = [
 # Add list of patterns
 contentpatterns = []
 
-categorypatterns = [
-	url(r'^cat/(?P<category_slug>[-\w]+)/$', CategoryContentListPage.as_view(), name="content_list_page"),
-]
-
-urlpatterns = homepatterns + categorypatterns + contentpatterns
+urlpatterns = homepatterns + contentpatterns
