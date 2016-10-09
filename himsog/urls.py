@@ -16,4 +16,8 @@ contentpatterns = [
     url(r'^category/$', CategoryView.as_view(), name='index'),
 ]
 
-urlpatterns = homepatterns + contentpatterns
+categorypatterns = [
+	url(r'^cat/(?P<category_slug>[-\w]+)/$', CategoryContentListPage.as_view(), name="content_list_page"),
+]
+
+urlpatterns = homepatterns + categorypatterns + contentpatterns

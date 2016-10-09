@@ -3,14 +3,19 @@ from django.views.generic import View
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
+<<<<<<< HEAD
 from himsog.models import Content
 
+
+=======
+from himsog.models import Category
+from himsog.models import Content
 
 class HomePage(View):
     
     def get (self, request):
 
-        return render(request, 'home.html', {'categories':categories})
+        return render(request, 'home.html')
 
 class ContentPage(View):
     '''
@@ -30,3 +35,16 @@ class ContentPage(View):
                                     pk=id)
 
         return render(request, 'content.html', {'content':content})
+
+class CategoryContentListPage(View):
+
+	def get(self, request, category_slug=None):
+
+		context = dict()
+		cat_slug = category_slug
+
+		cat = Category.objects.get(slug_name=cat_slug)
+		contents = Content.objects.filter(category=cat)
+
+		context['contents'] = contents
+		return render(request, 'category_content_list.html', context) 
