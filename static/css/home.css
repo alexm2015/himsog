@@ -1,0 +1,15 @@
+.borderless .list-group-item {
+    border: none;
+}
+
+#category-list button{
+	background-color: #E9EAED;
+}
+
+#category-list li {
+	color: #666666;
+}
+
+* {
+	font-family: helvetica, arial, sans-serif;
+}

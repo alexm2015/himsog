@@ -6,12 +6,14 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Himsog</title>
-{% include "external_css.html" %}
+{% include "base_css.html" %}
+{% block page_css %}{% endblock %}
 </head>
 
 <body>
 {% include "navbar.html" %}
 {% block main %}{% endblock %}
-{% include "external_js.html" %}
+{% include "base_js.html" %}
+{% block page_js %}{% endblock %}
 </body>
 </html>
