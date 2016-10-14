@@ -3,11 +3,6 @@ from django.views.generic import View
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
 
-<<<<<<< HEAD
-from himsog.models import Content
-
-
-=======
 from himsog.models import Category
 from himsog.models import Content
 

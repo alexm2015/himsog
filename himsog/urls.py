@@ -1,10 +1,10 @@
 from django.conf.urls import url
 
-from himsog.models import Content
+
 from himsog.views import HomePage
 from himsog.views import ContentPage
 from himsog.views.category import CategoryView
-
+from himsog.views import CategoryContentListPage
 
 homepatterns = [
     url(r'^$', HomePage.as_view(), name='index'),
