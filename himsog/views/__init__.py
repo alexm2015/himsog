@@ -7,12 +7,6 @@ from himsog.models import Category
 from himsog.models import Content
 
 
-class HomePage(View):
-
-    def get (self, request):
-
-        return render(request, 'home.html')
-
 class ContentPage(View):
     '''
     @class ContentPage
@@ -31,22 +25,3 @@ class ContentPage(View):
                                     pk=id)
 
         return render(request, 'content.html', {'content':content})
-
-class CategoryContentListPage(View):
-
-    def get(self, request, category_slug=None):
-
-        if not category_slug:
-            return HttpResponse(status=404)
-
-        cat = Category.objects.filter(slug_name=category_slug)
-        
-        if not cat:
-            return HttpResponse("Page not found!", status=404)
-
-        context = dict()
-        contents = Content.objects.filter(category=cat)
-
-        context['contents'] = contents
-        
-        return render(request, 'category_content_list.html', context) 
