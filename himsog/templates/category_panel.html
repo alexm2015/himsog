@@ -1,38 +1,18 @@
+{% load category_tags %} 
+
+{% all_categories as categories %}
 <ul id="category-list" class="list-group borderless">
-    <li class="nav-header disabled"><b>CATEGORIES</b></li>
-
-    <a href="/himsog/all">
-      <button type="button" class="list-group-item">
-        <span class="badge">1</span>
-          All
-      </button>
-    </a>
-
-    <a href="/himsog/food-and-supplements">
-      <button type="button" class="list-group-item">
-        <span class="badge">1</span>
-          Foods and Supplements
-      </button>
-    </a>
-
-    <a href="/himsog/services">
-      <button type="button" class="list-group-item">
-        <span class="badge">1</span>
-          Services
-      </button>
-    </a>
-
-    <a href="/himsog/events">
-      <button type="button" class="list-group-item">
-        <span class="badge">1</span>
-          Events
-      </button>
-    </a>
-
-    <a href="/himsog/articles">
-      <button type="button" class="list-group-item">
-        <span class="badge">1</span>
-          Articles
-      </button>
-    </a>
+	<li class="nav-header disabled"><b>CATEGORIES</b></li>
+	<button type="button" class="list-group-item">
+		<span class="badge">6</span> All
+	</button>
+	{% for category in categories %}
+        <a href="{% url 'content_list_page' category.slug_name %}">
+    	<button type="button" class="list-group-item">
+    		<span class="badge">1</span> {{ category.name }}
+    	</button>
+        </a>
+	{% endfor %}
 </ul>
+
+

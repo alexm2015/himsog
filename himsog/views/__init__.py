@@ -1,13 +1,14 @@
 from django.http import HttpResponse
-from django.views.generic import View
 from django.shortcuts import get_object_or_404
 from django.shortcuts import render
+from django.views.generic import View
 
 from himsog.models import Category
 from himsog.models import Content
 
+
 class HomePage(View):
-    
+
     def get (self, request):
 
         return render(request, 'home.html')
@@ -17,7 +18,7 @@ class ContentPage(View):
     @class ContentPage
     @brief View class for Content Page
     '''
-    
+
     def get (self, request, id):
         '''
         @fn get
@@ -41,7 +42,6 @@ class CategoryContentListPage(View):
         cat = Category.objects.filter(slug_name=category_slug)
         
         if not cat:
-            #todo
             return HttpResponse("Page not found!", status=404)
 
         context = dict()
