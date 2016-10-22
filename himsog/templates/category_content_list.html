@@ -8,10 +8,10 @@
     {% include "category_panel.html" %}
     </div>
 
-    <div class="col-md-8">
-    {% for each content in contents %}
-        <ul><li a href="/himsog/contents/{{content.id}}"> {{content.title}} <br/> {{content.image[0]}}</li></ul>
-    {% %}
+    <div class="col-md-8 list-group">
+    {% for content in contents %}
+        <a href="/himsog/content/{{content.id}}" class="list-group-item"> {{content.title}} <br/> {{content.image}}</a>
+    {% endfor %}
     </div>
 
     <div class="col-md-2">

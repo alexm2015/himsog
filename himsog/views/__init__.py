@@ -33,13 +33,20 @@ class ContentPage(View):
 
 class CategoryContentListPage(View):
 
-	def get(self, request, category_slug=None):
+    def get(self, request, category_slug=None):
 
-		context = dict()
-		cat_slug = category_slug
+        if not category_slug:
+            return HttpResponse(status=404)
 
-		cat = Category.objects.get(slug_name=cat_slug)
-		contents = Content.objects.filter(category=cat)
+        cat = Category.objects.filter(slug_name=category_slug)
+        
+        if not cat:
+            #todo
+            return HttpResponse("Page not found!", status=404)
 
-		context['contents'] = contents
-		return render(request, 'category_content_list.html', context) 
+        context = dict()
+        contents = Content.objects.filter(category=cat)
+
+        context['contents'] = contents
+        
+        return render(request, 'category_content_list.html', context) 

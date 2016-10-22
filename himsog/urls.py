@@ -12,12 +12,12 @@ homepatterns = [
 
 # Add list of patterns
 contentpatterns = [
-	url(r'^content/(?P<id>[0-9]+)/$', ContentPage.as_view(), name="content_page"),
+    url(r'^content/(?P<id>[0-9]+)/$', ContentPage.as_view(), name="content_page"),
     url(r'^category/$', CategoryView.as_view(), name='index'),
 ]
 
 categorypatterns = [
-	url(r'^cat/(?P<category_slug>[-\w]+)/$', CategoryContentListPage.as_view(), name="content_list_page"),
+    url(r'^(?P<category_slug>[-\w]+)/$', CategoryContentListPage.as_view(), name="content_list_page"),
 ]
 
 urlpatterns = homepatterns + categorypatterns + contentpatterns
