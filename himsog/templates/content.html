@@ -2,8 +2,23 @@
 
 {% block main %}
 
-// dito ung body nung content page
 
+<div class="row">
+    <div class="col-md-2">
+    <!-- category list (filters) -->
+    {% include "category_panel.html" %}
+    </div>
+
+    <div class="col-md-8 list-group" style="margin-top:18px">
+        <h2>{{ content.title }}</h2>
+        {{ content.description | linebreaks }}
+    </div>
+
+    <div class="col-md-2">
+    <!-- ads  -->
+    {% include "ads.html" %}
+    </div>
+</div>
 <!-- ads (depende pa sa layout paano papakita to)  -->
 {% include "ads.html" %}
 

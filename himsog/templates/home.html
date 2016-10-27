@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load static %}
 
 {% block main %}
 
@@ -11,7 +12,7 @@
     <div class="col-md-8 list-group" style="margin-top:18px">
     {% for content in contents %}
         <div class="card">
-           <img class="card-img-top" src="..." alt="Image not available">
+           <img class="card-img-top center" src="{% static 'img/unavailable.png' %}" alt="Image not available">
            <div class="card-block">
                <h4 class="card-title">{{ content.title }}</h4>
                <p class="card-text">{{ content.description | truncatewords:30 }}</p>
