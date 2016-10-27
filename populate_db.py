@@ -1,7 +1,6 @@
 import os
 
 import django
-from django.template.defaulttags import lorem
 from django.utils import lorem_ipsum
 
 os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'settings.settings')
@@ -56,7 +55,7 @@ def populate_db():
     ### add articles###
     content = add_content(category=category_article,
                           title='Article 1',
-                          description=lorem_ipsum.paragraphs(2))
+                          description='\n'.join(lorem_ipsum.paragraphs(2)))
 
     # remove all existing comments
     content.comments.all().delete()
@@ -71,7 +70,7 @@ def populate_db():
 
     content = add_content(category=category_article,
                           title='Article 2',
-                          description=lorem_ipsum.paragraphs(3))
+                          description='\n'.join(lorem_ipsum.paragraphs(3)))
 
     # remove all existing comments
     content.comments.all().delete()
