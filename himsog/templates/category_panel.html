@@ -1,17 +1,11 @@
 {% load category_tags %}
 
 {% all_categories as categories %}
-<ul id="category-list" class="list-group borderless">
+<ul id="category-list" class="list-group">
 	<li class="nav-header disabled"><b>CATEGORIES</b></li>
 	{% for item in categories %}
-        {% if item.category.slug_name %}
-        <a href="{% url 'home' item.category.slug_name %}">
-        {% else %}
-        <a href="{% url 'home' %}">
-        {% endif %}
-    	<button type="button" class="list-group-item">
-    		<span class="badge">{{ item.count }}</span> {{ item.category.name }}
-    	</button>
-        </a>
+	<li class="list-group-item">
+	   <a {% if item.category.slug_name %} href="{% url 'home' item.category.slug_name %}" {% else %} href="{% url 'home' %}" {% endif %} >{{ item.category.name }}</a><span class="badge">{{ item.count }}</span>
+	</li>
 	{% endfor %}
 </ul>

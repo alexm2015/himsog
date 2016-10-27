@@ -10,8 +10,16 @@
 
     <div class="col-md-8 list-group" style="margin-top:18px">
     {% for content in contents %}
-        <a href="/himsog/content/{{content.id}}" class="list-group-item"> {{content.title}} <br/> {{content.image}}</a>
+        <div class="card">
+           <img class="card-img-top" src="..." alt="Image not available">
+           <div class="card-block">
+               <h4 class="card-title">{{ content.title }}</h4>
+               <p class="card-text">{{ content.description | truncatewords:30 }}</p>
+               <a href="/himsog/content/{{content.id}}" class="btn btn-primary">View</a>
+           </div>
+        </div>
     {% endfor %}
+
     </div>
 
     <div class="col-md-2">
