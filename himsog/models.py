@@ -16,8 +16,7 @@ class Category(models.Model):
 class ContentImage(models.Model):
 
     name = models.CharField(max_length=256)
-    image = models.ImageField()
-    rating = models.IntegerField()
+    image = models.ImageField(upload_to='images')
 
 
 class Content(models.Model):

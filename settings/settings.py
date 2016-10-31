@@ -126,6 +126,9 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
 
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+
 # django-star-ratings settings
 # Allow anonymous user ratings
 STAR_RATINGS_ANONYMOUS = True

@@ -11,6 +11,11 @@
 
     <div class="col-md-8 list-group" style="margin-top:18px">
         <h2>{{ content.title }}</h2>
+        {% for image in content.images.all %}
+            <h3>{{ image.name }}</h3>
+            <img src="{{ image.image.url }}" alt="{{ image.name }}"/>
+        {% endfor %}
+        
         {{ content.description | linebreaks }}
         {% ratings content %}
     </div>
