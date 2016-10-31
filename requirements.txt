@@ -1,2 +1,4 @@
 Django==1.9.4
 PyMySQL==0.7.9
+django-sampledatahelper
+pillow
