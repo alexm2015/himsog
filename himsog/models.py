@@ -16,15 +16,12 @@ class Category(models.Model):
 class Comment(models.Model):
 
     comment = models.TextField()
-    comment_type = models.IntegerField()
 
 
 class ContentImage(models.Model):
 
     name = models.CharField(max_length=256)
-    image = models.ImageField()
-    rating = models.IntegerField()
-    comments = models.ManyToManyField(Comment)
+    image = models.ImageField(upload_to='images')
 
 
 class Content(models.Model):
