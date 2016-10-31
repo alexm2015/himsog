@@ -14,7 +14,9 @@ class Home(View):
         if category_slug:
             cat = Category.objects.filter(slug_name=category_slug)
             context_dict['contents'] = Content.objects.filter(category=cat)
+            context_dict['active'] = cat[0].name
         else:
             context_dict['contents'] = Content.objects.all()
-        
+            context_dict['active'] = 'All'
+
         return render(request, 'home.html', context_dict) 

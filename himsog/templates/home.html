@@ -5,19 +5,25 @@
 
 <div class="row">
     <div class="col-md-2">
-    <!-- category list (filters) -->
-    {% include "category_panel.html" %}
     </div>
 
     <div class="col-md-8 list-group" style="margin-top:18px">
     {% for content in contents %}
-        <div class="card">
-           <img class="card-img-top center" src="{% static 'img/unavailable.png' %}" alt="Image not available">
-           <div class="card-block">
-               <h4 class="card-title">{{ content.title }}</h4>
-               <p class="card-text">{{ content.description | truncatewords:30 }}</p>
-               <a href="/himsog/content/{{content.id}}" class="btn btn-primary">View</a>
-           </div>
+        <div class="panel panel-default">
+        	<div class="clickable-panel" onclick="window.location = '/himsog/content/{{content.id}}'"> 
+	            <div class="panel-heading" style="background-color: white; border-color: white;">
+	            	<img class="card-img-top center" src="{% static 'img/unavailable.png' %}" alt="Image not available">
+	            </div>
+	            <div class="panel-body">
+		            <h4 class="card-title">{{ content.title }}</h4>
+		            <p class="card-text">{{ content.description | truncatewords:30 }}</p>
+	            </div>
+	        </div>
+            <div class="panel-footer">
+	            <a class="btn btn-block btn-social btn-facebook" style="width: 100px">
+	            	<span class="fa fa-facebook"></span> Share
+	            </a>
+            </div>
         </div>
     {% endfor %}
 
