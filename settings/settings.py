@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'star_ratings',
     'himsog'
 ]
 
@@ -124,3 +125,13 @@ STATIC_URL = '/static/'
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'static'),
 ]
+
+# django-star-ratings settings
+# Allow anonymous user ratings
+STAR_RATINGS_ANONYMOUS = True
+
+# Define number of star ratings (default: 5)
+STAR_RATINGS_RANGE = 5
+
+# Disable changing ratings after setting
+STAR_RATINGS_RERATE = False

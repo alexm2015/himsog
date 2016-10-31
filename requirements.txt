@@ -1,2 +1,4 @@
 Django==1.9.4
 PyMySQL==0.7.9
+django-star-ratings==0.5.3
+Pillow==3.4.1

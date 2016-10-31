@@ -13,18 +13,11 @@ class Category(models.Model):
         return super(Category, self).save(*args, **kwargs)
 
 
-class Comment(models.Model):
-
-    comment = models.TextField()
-    comment_type = models.IntegerField()
-
-
 class ContentImage(models.Model):
 
     name = models.CharField(max_length=256)
     image = models.ImageField()
     rating = models.IntegerField()
-    comments = models.ManyToManyField(Comment)
 
 
 class Content(models.Model):
@@ -33,11 +26,9 @@ class Content(models.Model):
     title = models.CharField(max_length=256)
     description = models.TextField()
     images = models.ManyToManyField(ContentImage)
-    comments = models.ManyToManyField(Comment)
     created = models.DateTimeField()
     modified = models.DateTimeField()
     views = models.IntegerField(default=0)
-    rating = models.FloatField(default=0)
 
     def save(self, *args, **kwargs):
         if not self.id:

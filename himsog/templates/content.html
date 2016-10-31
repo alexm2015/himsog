@@ -1,8 +1,8 @@
 {% extends "base.html" %}
 
+{% load ratings %}
 {% block main %}
-
-
+<script src="/static/js/fb.js"></script>
 <div class="row">
     <div class="col-md-2">
     <!-- category list (filters) -->
@@ -12,6 +12,10 @@
     <div class="col-md-8 list-group" style="margin-top:18px">
         <h2>{{ content.title }}</h2>
         {{ content.description | linebreaks }}
+        {% ratings content %}
+    </div>
+
+    <div class="fb-comments" data-num-posts="2" data-width="470">
     </div>
 
     <div class="col-md-2">
