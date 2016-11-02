@@ -13,9 +13,9 @@
         	<div class="clickable-panel" onclick="window.location = '/himsog/content/{{content.id}}'"> 
 	            <div class="panel-heading" style="background-color: white; border-color: white;">
                     {% if content.images.all %}	             
-	            	<img src="{{ content.images.all.0.image.url }}" alt="{{ content.images.all.0.name }}">
+	            	<img class="img-responsive img-thumbnail" src="{{ content.images.all.0.image.url }}" alt="{{ content.images.all.0.name }}">
 	            	{% else %}
-	            	<img src="{% static 'img/unavailable.png' %}" />
+	            	<img class="img-responsive img-thumbnail" src="{% static 'img/unavailable.png' %}" />
 	            	{% endif %}
 	            </div>
 	            <div class="panel-body">
