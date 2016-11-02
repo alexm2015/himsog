@@ -23,5 +23,9 @@ class ContentPage(View):
 
         content = get_object_or_404(Content,
                                     pk=id)
+        image_count = content.images.count()
 
-        return render(request, 'content.html', {'content':content})
+        context = {'content': content,
+                   'image_count': range(image_count)}
+
+        return render(request, 'content.html', context)

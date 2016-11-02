@@ -1,27 +1,90 @@
 {% extends "base.html" %}
 
+{% block page_css %}
+<link href="/static/css/content.css" rel="stylesheet">
+{% endblock %}
+
 {% load ratings %}
 {% block main %}
-<script src="/static/js/fb.js"></script>
 <div class="row">
     <div class="col-md-2">
-    <!-- category list (filters) -->
-    {% include "category_panel.html" %}
     </div>
 
-    <div class="col-md-8 list-group" style="margin-top:18px">
+    <div class="col-md-8" style="margin-top:18px">
+        <div class="carousel slide carousel-fade" data-ride="carousel" id="image-carousel">
+            <ol class="carousel-indicators">
+                {% for i in image_count %}
+                {% if forloop.counter == 1 %}
+                <li data-target="#image-carousel" data-slide-to="{{ i}}" class="active"></li>
+                {% else %}
+                <li data-target="#image-carousel" data-slide-to="{{ i }}" class="active"></li>
+                {% endif %}
+                {% endfor %}
+            </ol>
+            <div class="carousel-inner" role="listbox">
+                {% for image in content.images.all %}
+                {% if forloop.counter == 1 %}
+                <div class="item active">
+                {% else %}
+                <div class="item">
+                {% endif %}
+                    <img src="{{ image.image.url }}" alt="{{ image.name }}"/>
+                    <div class="container">
+                        <div class="carousel-caption">
+                            <p>{{ image.name }}</p>
+                        </div>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+        <a class="left carousel-control" href="#image-carousel" role="button" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
+            </span>
+            <span class="sr-only">Prev</span>
+        </a>
+        <a class="right carousel-control" href="#image-carousel" role="button" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
+            </span>
+            <span class="sr-only">Next</span>
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8" style="margin-top:18px">
         <h2>{{ content.title }}</h2>
-        {% for image in content.images.all %}
-            <h3>{{ image.name }}</h3>
-            <img src="{{ image.image.url }}" alt="{{ image.name }}"/>
-        {% endfor %}
-        
         {{ content.description | linebreaks }}
-        {% ratings content %}
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-2">
     </div>
 
-    <div class="fb-comments" data-num-posts="2" data-width="470">
+    <div class="col-md-2" style="margin-top:18px">
+        <div class="panel-footer">
+            {% ratings content %}
+        </div>
     </div>
+
+    <div class="col-md-6" style="margin-top:18px">
+        <div class="panel-footer">
+            <div class="fb-share-button"
+                 data-href="http://192.168.33.10:8080/himsog/content/1/"
+                 data-layout="button_count"
+                 data-size="large"
+                 data-mobile-iframe="true">
+            </div>
+        </div>
+        <div class="panel-footer">
+            <div class="fb-comments" data-width="100%">
+        </div>
+    </div>
+</div>
 
     <div class="col-md-2">
     <!-- ads  -->
@@ -31,4 +94,9 @@
 <!-- ads (depende pa sa layout paano papakita to)  -->
 {% include "ads.html" %}
 
+{% endblock %}
+
+{% block page_js %}
+<script src="/static/js/fb.js"></script>
+<script src="/static/js/content.js"></script>
 {% endblock %}
