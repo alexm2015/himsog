@@ -8,6 +8,9 @@ class Category(models.Model):
     name = models.CharField(max_length=256)
     slug_name = models.SlugField()
 
+    def __str__(self):
+        return self.name
+
     def save(self, *args, **kwargs):
         self.slug_name = slugify(self.name)
         return super(Category, self).save(*args, **kwargs)
