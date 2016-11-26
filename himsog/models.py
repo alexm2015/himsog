@@ -28,6 +28,7 @@ class Content(models.Model):
     created = models.DateTimeField()
     modified = models.DateTimeField()
     views = models.IntegerField(default=0)
+    rating = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
         if not self.id:
