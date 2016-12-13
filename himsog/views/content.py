@@ -1,8 +1,10 @@
+from django.core.files.base import File
+from django.core.files.temp import NamedTemporaryFile
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import View
 
 from himsog.forms.content import ContentForm
-from himsog.models import Content
+from himsog.models import Content, ContentImage
 
 
 class ContentView(View):
@@ -46,7 +48,7 @@ class ContentAddView(View):
         """
         """
 
-        content_form = ContentForm(request.POST)
+        content_form = ContentForm(request.POST, request.FILES)
 
         if not content_form.is_valid():
             # return error
@@ -57,9 +59,23 @@ class ContentAddView(View):
         content.category = content_form.cleaned_data.get('category')
         content.title = content_form.cleaned_data.get('title')
         content.description = content_form.cleaned_data.get('description')
-        # TODO: add images
+
+        img_up = content_form.cleaned_data.get('images')
+        img_temp = NamedTemporaryFile(delete=True)
+        for chunk in img_up.chunks():
+            img_temp.write(chunk)
+
+        content_image = ContentImage()
+        content_image.image = File(img_temp)
+        content_image.name = img_up.name
+        content_image.save()
 
         content.save()
+
+        content.images.add(content_image)
+
+        content.save()
+
 
         self.context['content'] = content
         self.context['image_count'] = range(content.images.count())

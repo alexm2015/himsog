@@ -2,10 +2,11 @@
 
 {% block page_css %}
 <link href="/static/css/content.css" rel="stylesheet">
+{{ form.media }}
 {% endblock %}
 
 {% block main %}
-<form method="POST">
+<form method="POST" enctype="multipart/form-data">
 {% csrf_token %}
 {{ form.as_p }}
 <button>Add</button>
