@@ -30,17 +30,25 @@ ALLOWED_HOSTS = []
 
 
 # Application definition
-
-INSTALLED_APPS = [
+DEFAULT_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
-    'django.contrib.staticfiles',
+    'django.contrib.staticfiles'
+]
+
+EXTERNAL_APPS = [
     'star_ratings',
+    'tinymce'
+]
+
+APPS = [
     'himsog'
 ]
+
+INSTALLED_APPS = DEFAULT_APPS + EXTERNAL_APPS + APPS
 
 MIDDLEWARE_CLASSES = [
     'django.middleware.security.SecurityMiddleware',

@@ -34,7 +34,9 @@ class Content(models.Model):
     rating = models.IntegerField(default=0)
 
     def save(self, *args, **kwargs):
+
         if not self.id:
             self.created = timezone.now()
+
         self.modified = timezone.now()
         return super(Content, self).save(*args, **kwargs)
