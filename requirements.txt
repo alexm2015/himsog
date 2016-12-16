@@ -3,3 +3,4 @@ PyMySQL==0.7.9
 django-sampledatahelper
 pillow
 django-star-ratings
+django-tinymce
