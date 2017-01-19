@@ -1,4 +1,4 @@
-.borderless .list-group-item {
+/* .borderless .list-group-item {
     border: none;
 }
 
@@ -12,4 +12,33 @@
 
 * {
 	font-family: 'Open Sans', sans-serif;
+} */
+
+html, body {
+    height: 100%;
+    margin: 0;
+}
+
+div.fullpage {
+    heighit: 100%;
+    min-height: 100%;
+}
+
+html>body .fullpage {
+    height: auto;
+}
+
+#landing-page {
+  background-image: url(/static/img/banner.jpg);
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center center;
+}
+
+nav {
+	display: none;
+}
+
+#news-div {
+	display: none;
 }

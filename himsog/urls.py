@@ -2,11 +2,13 @@ from django.conf.urls import url
 
 
 from himsog.views.home import Home
+from himsog.views.home import Landing
 from himsog.views import ContentPage
 
 homepatterns = [
-    url(r'^$', Home.as_view(), name="home"),
-    url(r'^(?P<category_slug>[-\w]+)/$', Home.as_view(), name="home"),
+    url(r'^$', Landing.as_view(), name="landing"),
+#     url(r'^$', Home.as_view(), name="home"),
+#     url(r'^(?P<category_slug>[-\w]+)/$', Home.as_view(), name="home"),
 ]
 
 # Add list of patterns

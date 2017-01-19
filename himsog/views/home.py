@@ -6,6 +6,13 @@ from himsog.models import Category
 from himsog.models import Content
 
 
+class Landing(View):
+
+    def get(self, request):
+        context_dict = dict()
+        return render(request, 'landing.html') 
+
+
 class Home(View):
 
     def get(self, request, category_slug=None):

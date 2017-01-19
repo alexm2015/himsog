@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html>
+<head>
+{% load static %}
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+<title>Himsog</title>
+<link href="/static/ext/materialize/css/materialize.min.css" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+<link href="/static/css/base.css" rel="stylesheet">
+
+<style>
+body {
+margin: 0px 0px;
+}
+
+#hero {
+background-color: black;
+background-size: cover;
+position: relative;
+}
+
+.header {
+position: absolute;
+top: 50%;
+text-align: center;
+width: 100%;
+color: #ffffff;
+font-size: 36px;
+-ms-transform: translate(0, -50%);
+-webkit-transform: translate(0, -50%);
+transform: translate(0, -50%);
+}
+</style>
+
+</head>
+
+<body>
+
+<!-- <div id="hero">
+    <div class="header">
+        <h1>himsog</h1>
+    </div>
+</div> -->
+
+<div class="slider">
+   <ul class="slides">
+     <li style="background-color: blue">
+       <div class="caption center-align">
+         <h3>This is our big Tagline!</h3>
+         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+       </div>
+     </li>
+     <li style="background-color: blue">
+       <div class="caption left-align">
+         <h3>Left Aligned Caption</h3>
+         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+       </div>
+     </li>
+     <li style="background-color: blue">
+       <div class="caption right-align">
+         <h3>Right Aligned Caption</h3>
+         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+       </div>
+     </li>
+     <li style="background-color: blue">
+       <div class="caption center-align">
+         <h3>This is our big Tagline!</h3>
+         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
+       </div>
+     </li>
+   </ul>
+ </div>
+
+
+<script src="/static/ext/jquery/jquery-3.1.0.min.js"></script>
+<script src="/static/ext/materialize/js/materialize.min.js"></script>
+<script src="/static/js/csrf.js"></script>
+
+<script>
+
+$(document).ready(function(){
+    $('.slider').slider({full_width: true,
+    	indicators: false,
+    	transition: 500,
+    	interval: 500,
+    	height: $(window).height()});
+});
+
+</script>
+
+
+</body>
+</html>
