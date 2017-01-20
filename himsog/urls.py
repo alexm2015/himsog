@@ -3,6 +3,7 @@ from django.conf.urls import url
 from himsog.views import ContentPage
 from himsog.views.content import ContentAddView
 from himsog.views.home import Home
+from himsog.views.home import Landing
 
 
 homepatterns = [

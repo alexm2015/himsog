@@ -7,71 +7,94 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Himsog</title>
 <link href="/static/ext/materialize/css/materialize.min.css" rel="stylesheet">
-<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
+<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 <link href="/static/css/base.css" rel="stylesheet">
 
 <style>
-body {
-margin: 0px 0px;
+body{
+    margin:0px 0px;
+    /*font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;*/
 }
 
-#hero {
-background-color: black;
-background-size: cover;
-position: relative;
+#hero{
+    background-size:cover;
+    position:relative;
+    /*transition: background 1s linear;*/
 }
 
-.header {
-position: absolute;
-top: 50%;
-text-align: center;
-width: 100%;
-color: #ffffff;
-font-size: 36px;
--ms-transform: translate(0, -50%);
--webkit-transform: translate(0, -50%);
-transform: translate(0, -50%);
+.header{
+    position:absolute;
+    top:50%;
+    text-align:center;
+    width:100%;
+    color:#000;
+    font-size:36px;
+    -ms-transform: translate(0,-50%); /* IE 9 */
+    -webkit-transform: translate(0,-50%); /* Safari */
+    transform: translate(0,-50%);  
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;   
+    /*font-size: 24px;
+    font-style: normal;
+    font-variant: normal;
+    font-weight: 500;
+    line-height: 26.4px;*/
 }
+/*
+#content{
+    padding:100px 50px;
+    text-align:center;
+    width:80%;
+    margin:0px auto;
+}
+
+#content h2{
+    margin:0px 0px 30px 0px;
+}
+
+#footer{
+    padding:30px 0px;
+    text-align:center;
+    background:#ddd;
+}*/
+
 </style>
 
 </head>
 
 <body>
 
-<!-- <div id="hero">
-    <div class="header">
-        <h1>himsog</h1>
-    </div>
-</div> -->
-
-<div class="slider">
-   <ul class="slides">
-     <li style="background-color: blue">
-       <div class="caption center-align">
-         <h3>This is our big Tagline!</h3>
-         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-       </div>
-     </li>
-     <li style="background-color: blue">
-       <div class="caption left-align">
-         <h3>Left Aligned Caption</h3>
-         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-       </div>
-     </li>
-     <li style="background-color: blue">
-       <div class="caption right-align">
-         <h3>Right Aligned Caption</h3>
-         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-       </div>
-     </li>
-     <li style="background-color: blue">
-       <div class="caption center-align">
-         <h3>This is our big Tagline!</h3>
-         <h5 class="light grey-text text-lighten-3">Here's our small slogan.</h5>
-       </div>
-     </li>
-   </ul>
- </div>
+<div id="wrapper">
+  <div id="hero"></div>
+  <div class="header">
+      Logo
+      <h1> Search </h1>
+      <div class="row">
+          <div class="col s1 m2 l2"></div>
+          <div class="col s10 m8 l8">
+              <nav class="deep-orange darken-3">
+                  <div class="nav-wrapper">
+                      <form>
+                          <div class="input-field">
+                              <input id="search" type="search" required>
+                              <label for="search"><i class="material-icons">search</i></label>
+                              <i class="material-icons">close</i>
+                          </div>
+                      </form>
+                  </div>
+              </nav>
+          </div>
+          <div class="col s1 m8 l2"></div>
+      </div>
+      <a class="waves-effect waves-light btn-large">BROWSE</a>
+  </div>
+  <!-- <div id="content">
+    <h2> If nothing goes right for you , go left.</h2>
+    <p> Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. </p>
+  </div>
+  <div id="footer">
+    <p> I am the footer, and you have scroll down to see me.</p>
+  </div> -->
+</div>
 
 
 <script src="/static/ext/jquery/jquery-3.1.0.min.js"></script>
@@ -81,11 +104,47 @@ transform: translate(0, -50%);
 <script>
 
 $(document).ready(function(){
-    $('.slider').slider({full_width: true,
-    	indicators: false,
-    	transition: 500,
-    	interval: 500,
-    	height: $(window).height()});
+
+    function fullscreen(){
+        $("#hero").css({
+            width: $(window).width(),
+            height: $(window).height()
+        });
+    };
+  
+    fullscreen();
+
+    $(window).resize(function() {
+        fullscreen();         
+    });
+
+    function getBackgroundList() {
+        // Get background list from server
+        return ["url(http://wire.kapitall.com/wp-content/image-import/healthy-food-stocks.jpeg)"];
+    };
+
+    function changeBackground() {
+      var hero = $("#hero");
+      var imageList = getBackgroundList();
+      var imageIndex = 0;
+      var changeInterval = 10 * 1000;
+      var fadeInterval = 0.5 * 1000;
+
+      hero.css("background-image", imageList[imageIndex]);
+
+      setInterval(function() {
+          hero.fadeOut(fadeInterval, function () {
+              imageIndex++;
+              if (imageIndex >= imageList.length) {
+                  imageIndex = 0;
+              }
+              hero.css("background-image", imageList[imageIndex]);
+              hero.fadeIn(fadeInterval);
+          });
+      }, changeInterval);
+    };
+
+    changeBackground();
 });
 
 </script>
