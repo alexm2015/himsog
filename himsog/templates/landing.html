@@ -6,20 +6,22 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Himsog</title>
-<link href="/static/ext/materialize/css/materialize.min.css" rel="stylesheet">
-<link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+<!-- <link href="/static/ext/materialize/css/materialize.min.css" rel="stylesheet"> -->
+<link href="/static/ext/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
 <link href="/static/css/base.css" rel="stylesheet">
 
 <style>
 body{
     margin:0px 0px;
-    /*font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;*/
+    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;
 }
 
 #hero{
     background-size:cover;
     position:relative;
     /*transition: background 1s linear;*/
+    filter: brightness(75%);
 }
 
 .header{
@@ -32,12 +34,18 @@ body{
     -ms-transform: translate(0,-50%); /* IE 9 */
     -webkit-transform: translate(0,-50%); /* Safari */
     transform: translate(0,-50%);  
-    font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;   
+    /*font-family: "Century Gothic", CenturyGothic, AppleGothic, sans-serif;   */
     /*font-size: 24px;
     font-style: normal;
     font-variant: normal;
     font-weight: 500;
     line-height: 26.4px;*/
+}
+
+.span-headers {
+    color: white;
+    margin-bottom: 15px;
+    margin-top: 0px;
 }
 /*
 #content{
@@ -57,6 +65,17 @@ body{
     background:#ddd;
 }*/
 
+/*SEARCH FORM*/
+.search-form {
+    border-radius: 30px 0px 0px 30px;
+    /*border-radius:Top-left, Top-right, Bottom-right, Bottom-left;*/
+}
+/*to cange only one form and not all give unique class name like  class="search-form" */
+ .search-btn {
+    border-radius: 0px 30px 30px 0px;
+    cursor:pointer;
+}
+
 </style>
 
 </head>
@@ -65,27 +84,30 @@ body{
 
 <div id="wrapper">
   <div id="hero"></div>
-  <div class="header">
-      Logo
-      <h1> Search </h1>
+  <div class="header container-fluid">
+      <img src="/static/img/logo.png" />
+      <div style="color: #5CB85C; font-size: 25px">HIMSOG</div>
+      </br>
+      <span class="span-headers" style="color: #F1EEEC">Do you want to eat healthy?</span>
+      </br>
+      <!-- <span class="span-headers"><b>Ask me how</b></span> -->
       <div class="row">
-          <div class="col s1 m2 l2"></div>
-          <div class="col s10 m8 l8">
-              <nav class="deep-orange darken-3">
-                  <div class="nav-wrapper">
-                      <form>
-                          <div class="input-field">
-                              <input id="search" type="search" required>
-                              <label for="search"><i class="material-icons">search</i></label>
-                              <i class="material-icons">close</i>
-                          </div>
-                      </form>
+          <div class="col-xs-0 col-sm-2 col-md-4 col-lg-4"></div>
+          <div class="col-xs-12 col-sm-8 col-md-4 col-lg-4">
+              <form id="search-form">
+                  <div class="input-group">
+                      <input type="text" class="form-control search-form" placeholder="Search for healthy food and services">
+                      <span class="input-group-btn">
+                          <button type="submit" class="btn btn-success search-btn" data-target="#search-form"><span class="glyphicon glyphicon-search" aria-hidden="true"></span></button>
+                      </span>
                   </div>
-              </nav>
+              </form>
           </div>
-          <div class="col s1 m8 l2"></div>
+          <div class="col-xs-0 col-sm-2 col-md-4 col-lg-4"></div>
       </div>
-      <a class="waves-effect waves-light btn-large">BROWSE</a>
+      </br>
+      <button type="button" class="btn btn-success btn-lg">Browse</button>
+
   </div>
   <!-- <div id="content">
     <h2> If nothing goes right for you , go left.</h2>
@@ -98,7 +120,8 @@ body{
 
 
 <script src="/static/ext/jquery/jquery-3.1.0.min.js"></script>
-<script src="/static/ext/materialize/js/materialize.min.js"></script>
+<!-- <script src="/static/ext/materialize/js/materialize.min.js"></script> -->
+<script src="/static/ext/bootstrap/js/bootstrap.min.js"></script>
 <script src="/static/js/csrf.js"></script>
 
 <script>
@@ -115,12 +138,15 @@ $(document).ready(function(){
     fullscreen();
 
     $(window).resize(function() {
-        fullscreen();         
+        fullscreen();
     });
 
     function getBackgroundList() {
         // Get background list from server
-        return ["url(http://wire.kapitall.com/wp-content/image-import/healthy-food-stocks.jpeg)"];
+        // return ["url(http://wire.kapitall.com/wp-content/image-import/healthy-food-stocks.jpeg)"];
+        return ["url(http://cdn1.bostonmagazine.com/wp-content/uploads/2013/12/healthy_food_main.jpg)",
+                "url(https://img.clipartfest.com/f4cd6e7cbebfbe6a9c81ad815884597b_healthy-food-local-healthy-healthy-food-wallpaper-clipart_1920-1200.jpeg)",
+                "url(http://hivewallpaper.com/wallpaper/2014/12/healthy-food-wallpapers-2-background-wallpaper.jpg)"]
     };
 
     function changeBackground() {
@@ -128,20 +154,20 @@ $(document).ready(function(){
       var imageList = getBackgroundList();
       var imageIndex = 0;
       var changeInterval = 10 * 1000;
-      var fadeInterval = 0.5 * 1000;
+      var fadeInterval = 0.2 * 1000;
 
       hero.css("background-image", imageList[imageIndex]);
 
-      setInterval(function() {
-          hero.fadeOut(fadeInterval, function () {
-              imageIndex++;
-              if (imageIndex >= imageList.length) {
-                  imageIndex = 0;
-              }
-              hero.css("background-image", imageList[imageIndex]);
-              hero.fadeIn(fadeInterval);
-          });
-      }, changeInterval);
+      // setInterval(function() {
+      //     hero.fadeOut(fadeInterval, function () {
+      //         imageIndex++;
+      //         if (imageIndex >= imageList.length) {
+      //             imageIndex = 0;
+      //         }
+      //         hero.css("background-image", imageList[imageIndex]);
+      //         hero.fadeIn(fadeInterval);
+      //     });
+      // }, changeInterval);
     };
 
     changeBackground();
