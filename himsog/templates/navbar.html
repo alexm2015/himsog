@@ -22,14 +22,7 @@
 	               <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{ active }} <span class="caret"></span></a>
 	               <ul class="dropdown-menu">
 	                   {% for item in categories %}
-	                   <li><a 
-	                           {% if item.category.slug_name %}
-	                               href="{% url 'home' item.category.slug_name %}">
-	                           {% else %}
-	                               href="{% url 'home' %}">
-	                           {% endif %}
-                               {{ item.category.name }}
-                       </a></li>
+	                   <li><a href="#">{{ item.category.name }}</a></li>
 	                   {% endfor %}
 	               </ul>
 	           </li>

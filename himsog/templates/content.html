@@ -1,102 +1,66 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+{% load js %}
 
 {% block page_css %}
-<link href="/static/css/content.css" rel="stylesheet">
+<link rel="stylesheet" type="text/css" href="{% static 'ext/images-grid/images-grid.css' %}">
 {% endblock %}
 
-{% load ratings %}
 {% block main %}
-<div class="row">
-    <div class="col-md-2">
-    </div>
-
-    <div class="col-md-8" style="margin-top:18px">
-        <div class="carousel slide carousel-fade" data-ride="carousel" id="image-carousel">
-            <ol class="carousel-indicators">
-                {% for i in image_count %}
-                {% if forloop.counter == 1 %}
-                <li data-target="#image-carousel" data-slide-to="{{ i}}" class="active"></li>
-                {% else %}
-                <li data-target="#image-carousel" data-slide-to="{{ i }}" class="active"></li>
-                {% endif %}
-                {% endfor %}
-            </ol>
-            <div class="carousel-inner" role="listbox">
-                {% for image in content.images.all %}
-                {% if forloop.counter == 1 %}
-                <div class="item active">
-                {% else %}
-                <div class="item">
-                {% endif %}
-                    <img src="{{ image.image.url }}" alt="{{ image.name }}"/>
-                    <div class="container">
-                        <div class="carousel-caption">
-                            <p>{{ image.name }}</p>
-                        </div>
-                    </div>
+<div class="container-fluid">
+    <div class="row">
+        <div class="col-md-2 hidden-xs hidden-sm">
+            <h2>Place Ads Here</h2>
+        </div>
+        <div class="col-md-10">
+            <div class="panel panel-default">
+                <div class="panel-body">
+                    <h4>{{ content.title }}</h4>
                 </div>
-                {% endfor %}
+                <div id="imgs"></div>
+                <div class="panel-body">
+                    <h3>Overview</h3>
+                    <p>{{ content.content1 | safe }}</p>
+                </div>
+                <div class="panel-body">
+                    <h3>Menu</h3>
+                    <p>{{ content.content2 | safe }}</p>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5>Write A Review</h5>
+                </div>
+                <div class="panel-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="inputReview">Review</label>
+                            <input type="review" class="form-control" id="inputReview" placeholder="Review">
+                        </div>
+                        <button type="submit" class="btn btn-default">Submit</button>
+                    </form>
+                </div>
+            </div>
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h5>Reviews</h5>
+                </div>
+                <div class="panel-body">
+                    <p class="text-muted text-center">No Reviews Yet</p>
+                </div>
             </div>
         </div>
-        <a class="left carousel-control" href="#image-carousel" role="button" data-slide="prev">
-            <span class="glyphicon glyphicon-chevron-left" aria-hidden="true">
-            </span>
-            <span class="sr-only">Prev</span>
-        </a>
-        <a class="right carousel-control" href="#image-carousel" role="button" data-slide="next">
-            <span class="glyphicon glyphicon-chevron-right" aria-hidden="true">
-            </span>
-            <span class="sr-only">Next</span>
-        </a>
     </div>
 </div>
-
-<div class="row">
-    <div class="col-md-2">
-    </div>
-
-    <div class="col-md-8" style="margin-top:18px">
-        <h2>{{ content.title }}</h2>
-        {{ content.description | safe }}
-    </div>
-</div>
-
-<div class="row">
-    <div class="col-md-2">
-    </div>
-
-    <div class="col-md-2" style="margin-top:18px">
-        <div class="panel-footer">
-            {% ratings content %}
-        </div>
-    </div>
-
-    <div class="col-md-6" style="margin-top:18px">
-        <div class="panel-footer">
-            <div class="fb-share-button"
-                 data-href="http://192.168.33.10:8080/himsog/content/1/"
-                 data-layout="button_count"
-                 data-size="large"
-                 data-mobile-iframe="true">
-            </div>
-        </div>
-        <div class="panel-footer">
-            <div class="fb-comments" data-width="100%">
-        </div>
-    </div>
-</div>
-
-    <div class="col-md-2">
-    <!-- ads  -->
-    {% include "ads.html" %}
-    </div>
-</div>
-<!-- ads (depende pa sa layout paano papakita to)  -->
-{% include "ads.html" %}
-
 {% endblock %}
 
 {% block page_js %}
-<script src="/static/js/fb.js"></script>
-<script src="/static/js/content.js"></script>
+<script type="text/javascript" src="{% static 'ext/images-grid/images-grid.js' %}"></script>
+<script type="text/javascript">
+    var photos = {% get_image_urls content %}
+    $('#imgs').imagesGrid({
+        'images': photos,
+        'align': true,
+    });
+</script>
 {% endblock %}

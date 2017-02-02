@@ -17,10 +17,12 @@ class ContentView(View):
         """
         """
 
+
         content = get_object_or_404(Content, pk=content_id)
+        primary_image = content.images.filter(is_primary=True).order_by('id')[0]
 
         self.context['content'] = content
-        self.context['image_count'] = range(content.images.count())
+        self.context['primary_image'] = primary_image
 
         return render(request,
                       'content.html',

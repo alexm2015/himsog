@@ -34,7 +34,9 @@ class Content(models.Model):
 
     category = models.ForeignKey(Category)
     title = models.CharField(max_length=255)
-    description = models.TextField()
+    content1 = models.TextField(null=True)
+    content2 = models.TextField(null=True)
+    content3 = models.TextField(null=True)
     images = models.ManyToManyField(ContentImage)
     views = models.IntegerField(default=0)
     rating = models.IntegerField(default=0)
