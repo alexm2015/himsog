@@ -39,8 +39,7 @@ class Command(BaseCommand):
                                                             url=url,
                                                             is_primary=is_primary)
                 content.images.add(content_image)
-
-            content.save()
+                content.save()
 
     def handle(self, *args, **options):
 
