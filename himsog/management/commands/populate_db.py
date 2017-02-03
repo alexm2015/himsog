@@ -28,7 +28,10 @@ class Command(BaseCommand):
             content.views = self.sdh.int()
             content.rating = self.sdh.float(min_value=0, max_value=5)
 
-            for x in range(random.randint(0, images)):
+            r = range(random.randint(0, images))
+            print(r)
+            for x in r:
+                print(x)
 
                 is_primary = False
                 if x == 1:
@@ -39,7 +42,8 @@ class Command(BaseCommand):
                                                             url=url,
                                                             is_primary=is_primary)
                 content.images.add(content_image)
-                content.save()
+
+            content.save()
 
     def handle(self, *args, **options):
 
