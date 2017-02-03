@@ -43,8 +43,6 @@ class Command(BaseCommand):
                                                             is_primary=is_primary)
                 content.images.add(content_image)
 
-            content.save()
-
     def handle(self, *args, **options):
 
         print('Populating database')
