@@ -28,10 +28,7 @@ class Command(BaseCommand):
             content.views = self.sdh.int()
             content.rating = self.sdh.float(min_value=0, max_value=5)
 
-            r = range(random.randint(0, images))
-            print(r)
-            for x in r:
-                print(x)
+            for x in range(random.randint(0, images)):
 
                 is_primary = False
                 if x == 1:
