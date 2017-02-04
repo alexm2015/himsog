@@ -9,7 +9,7 @@ from himsog.views.home import Landing
 
 homepatterns = [
     url(r'^$', Landing.as_view(), name='landing'),
-    url(r'^/home/$', Home.as_view(), name="home"),
+    url(r'^home/$', Home.as_view(), name="home"),
 #     url(r'^(?P<category_slug>[-\w]+)/$', Home.as_view(), name="home"),
 ]
 
