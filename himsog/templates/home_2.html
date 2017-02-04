@@ -1,0 +1,46 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block main %}
+
+<div class="row">
+    <div class="col-md-2">
+    </div>
+
+    <div class="col-md-8 list-group" style="margin-top:18px">
+    {% for content in contents %}
+        <div class="panel panel-default">
+        	<div class="clickable-panel" onclick="window.location = '/himsog/content/{{content.id}}'"> 
+	            <div class="panel-heading" style="background-color: white; border-color: white;">
+                    {% if content.images.all %}	             
+	            	<img class="img-responsive img-thumbnail" src="{{ content.images.all.0.image.url }}" alt="{{ content.images.all.0.name }}">
+	            	{% else %}
+	            	<img class="img-responsive img-thumbnail" src="{% static 'img/unavailable.png' %}" />
+	            	{% endif %}
+	            </div>
+	            <div class="panel-body">
+		            <h4 class="card-title">{{ content.title }}</h4>
+		            <p class="card-text">{{ content.description | truncatewords:30 }}</p>
+	            </div>
+	        </div>
+            <div class="panel-footer">
+	            <a class="btn btn-block btn-social btn-facebook" style="width: 100px">
+	            	<span class="fa fa-facebook"></span> Share
+	            </a>
+            </div>
+        </div>
+    {% endfor %}
+
+    </div>
+
+    <div class="col-md-2">
+    <!-- ads  -->
+    {% include "ads.html" %}
+    </div>
+</div>
+
+{% endblock %}
+
+{% block page_css %}
+<link href="/static/css/home.css" rel="stylesheet">
+{% endblock %}

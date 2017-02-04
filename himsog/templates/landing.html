@@ -6,10 +6,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=edge">
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
 <title>Himsog</title>
-<!-- <link href="/static/ext/materialize/css/materialize.min.css" rel="stylesheet"> -->
 <link href="/static/ext/bootstrap/css/bootstrap.min.css" rel="stylesheet">
-<!-- <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet"> -->
-<link href="/static/css/base.css" rel="stylesheet">
 
 <style>
 body{
@@ -47,6 +44,12 @@ body{
     margin-bottom: 15px;
     margin-top: 0px;
 }
+
+#logo {
+    width: 200px;
+    height: auto;
+}
+
 /*
 #content{
     padding:100px 50px;
@@ -85,8 +88,8 @@ body{
 <div id="wrapper">
   <div id="hero"></div>
   <div class="header container-fluid">
-      <img src="/static/img/logo.png" />
-      <div style="color: #5CB85C; font-size: 25px">HIMSOG</div>
+      <img id="logo" src="/static/img/logo_with_word.png" />
+      <!-- <div style="color: #5CB85C; font-size: 25px">HIMSOG</div> -->
       </br>
       <span class="span-headers" style="color: #F1EEEC">Do you want to eat healthy?</span>
       </br>
@@ -106,7 +109,8 @@ body{
           <div class="col-xs-0 col-sm-2 col-md-4 col-lg-4"></div>
       </div>
       </br>
-      <button type="button" class="btn btn-success btn-lg">Browse</button>
+      <!-- <button type="button" class="btn btn-success btn-lg">Browse</button> -->
+      <a href="/himsog/home/" class="btn btn-success btn-lg" role="button">Browse</a>
 
   </div>
   <!-- <div id="content">
@@ -144,7 +148,7 @@ $(document).ready(function(){
     function getBackgroundList() {
         // Get background list from server
         // return ["url(http://wire.kapitall.com/wp-content/image-import/healthy-food-stocks.jpeg)"];
-        return ["url(http://cdn1.bostonmagazine.com/wp-content/uploads/2013/12/healthy_food_main.jpg)",
+        return ["url(/static/img/bg01.jpg)",
                 "url(https://img.clipartfest.com/f4cd6e7cbebfbe6a9c81ad815884597b_healthy-food-local-healthy-healthy-food-wallpaper-clipart_1920-1200.jpeg)",
                 "url(http://hivewallpaper.com/wallpaper/2014/12/healthy-food-wallpapers-2-background-wallpaper.jpg)"]
     };
