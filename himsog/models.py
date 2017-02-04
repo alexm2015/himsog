@@ -1,9 +1,11 @@
 from django.db import models
 from django.template.defaultfilters import slugify
-from django.utils import timezone
 
 
 class Category(models.Model):
+    """
+    Content category model
+    """
 
     name = models.CharField(max_length=256)
     slug_name = models.SlugField()
@@ -15,28 +17,36 @@ class Category(models.Model):
         self.slug_name = slugify(self.name)
         return super(Category, self).save(*args, **kwargs)
 
-
 class ContentImage(models.Model):
+    """
+    Content image model
+    """
 
     name = models.CharField(max_length=256)
-    image = models.ImageField(upload_to='images')
+    url = models.URLField()
+    is_primary = models.BooleanField(default=False)
 
 
 class Content(models.Model):
+    """
+    Content model
+    """
 
     category = models.ForeignKey(Category)
-    title = models.CharField(max_length=256)
-    description = models.TextField()
+    title = models.CharField(max_length=255)
+    content1 = models.TextField(null=True)
+    content2 = models.TextField(null=True)
+    content3 = models.TextField(null=True)
     images = models.ManyToManyField(ContentImage)
-    created = models.DateTimeField()
-    modified = models.DateTimeField()
     views = models.IntegerField(default=0)
     rating = models.IntegerField(default=0)
+    created = models.DateTimeField(auto_now_add=True)
+    modified = models.DateTimeField(auto_now=True)
 
-    def save(self, *args, **kwargs):
-
-        if not self.id:
-            self.created = timezone.now()
-
-        self.modified = timezone.now()
-        return super(Content, self).save(*args, **kwargs)
+#     def save(self, *args, **kwargs):
+#
+#         if not self.id:
+#             self.created = timezone.now()
+#
+#         self.modified = timezone.now()
+#         return super(Content, self).save(*args, **kwargs)

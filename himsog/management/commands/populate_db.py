@@ -1,7 +1,5 @@
 import random
 
-from django.core.files.base import File
-from django.core.files.temp import NamedTemporaryFile
 from django.core.management.base import BaseCommand
 from sampledatahelper.helper import SampleDataHelper
 
@@ -24,38 +22,41 @@ class Command(BaseCommand):
         for _ in range(instances):
             content = Content.objects.create(category=category,
                                              title=self.sdh.words(1, 10),
-                                             description=self.sdh.paragraphs())
+                                             content1=self.sdh.long_sentence(),
+                                             content2=self.sdh.long_sentence(),
+                                             content3=self.sdh.long_sentence())
             content.views = self.sdh.int()
             content.rating = self.sdh.float(min_value=0, max_value=5)
 
-            for _ in range(random.randint(0, images)):
-                content_image = ContentImage.objects.create(name=self.sdh.words())
-                data = self.sdh.image(800, 600, typ='random')
+            r = range(random.randint(0, images))
+            print(r)
+            for x in r:
+                print(x)
 
-                img_temp = NamedTemporaryFile(delete=True)
-                img_temp.write(data.read())
+                is_primary = False
+                if x == 1:
+                    is_primary = True
 
-                content_image.image = File(img_temp)
-                content_image.save()
-
+                url = 'http://placehold.it/1920x1080'
+                content_image = ContentImage.objects.create(name=self.sdh.words(),
+                                                            url=url,
+                                                            is_primary=is_primary)
                 content.images.add(content_image)
-
-            content.save()
 
     def handle(self, *args, **options):
 
         print('Populating database')
 
         category_food, _ = Category.objects.get_or_create(name='Food And Supplements')
-        self.generate_content(category_food, instances=5, images=4)
+        self.generate_content(category_food, instances=30, images=15)
 
-        category_service, _ = Category.objects.get_or_create(name='Services')
-        self.generate_content(category_service, instances=2, images=3)
-
-        category_event, _ = Category.objects.get_or_create(name='Events')
-        self.generate_content(category_event, instances=2, images=10)
-
-        category_article, _ = Category.objects.get_or_create(name='Articles')
-        self.generate_content(category_article, instances=1, images=2)
+#         category_service, _ = Category.objects.get_or_create(name='Services')
+#         self.generate_content(category_service, instances=2, images=5)
+#
+#         category_event, _ = Category.objects.get_or_create(name='Events')
+#         self.generate_content(category_event, instances=2, images=10)
+#
+#         category_article, _ = Category.objects.get_or_create(name='Articles')
+#         self.generate_content(category_article, instances=1, images=2)
 
         print('Database population complete')
