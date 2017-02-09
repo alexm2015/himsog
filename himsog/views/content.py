@@ -3,8 +3,11 @@ from django.core.files.temp import NamedTemporaryFile
 from django.shortcuts import get_object_or_404, render
 from django.views.generic.base import View
 
-from himsog.forms.content import ContentForm
-from himsog.models import Content, ContentImage
+from himsog.forms.content import MenuFormSet
+from himsog.forms.content import OverviewForm
+from himsog.forms.content import PhotoFormSet
+from himsog.models import Content
+from himsog.models import ContentImage
 
 
 class ContentView(View):
@@ -39,52 +42,57 @@ class ContentAddView(View):
         """
         """
 
-        content_form = ContentForm()
-        self.context['form'] = content_form
+        overview_form = OverviewForm()
+        menu_formset = MenuFormSet(prefix='menu')
+        photo_formset = PhotoFormSet(prefix='photo')
+
+        self.context['overview_form'] = overview_form
+        self.context['menu_formset'] = menu_formset
+        self.context['photo_formset'] = photo_formset
 
         return render(request,
                       'content_add.html',
                       self.context)
 
-    def post(self, request):
-        """
-        """
-
-        content_form = ContentForm(request.POST, request.FILES)
-
-        if not content_form.is_valid():
-            # return error
-            pass
-
-        content_form.clean()
-        content = Content()
-        content.category = content_form.cleaned_data.get('category')
-        content.title = content_form.cleaned_data.get('title')
-        content.description = content_form.cleaned_data.get('description')
-
-        img_up = content_form.cleaned_data.get('images')
-        img_temp = NamedTemporaryFile(delete=True)
-        for chunk in img_up.chunks():
-            img_temp.write(chunk)
-
-        content_image = ContentImage()
-        content_image.image = File(img_temp)
-        content_image.name = img_up.name
-        content_image.save()
-
-        content.save()
-
-        content.images.add(content_image)
-
-        content.save()
-
-
-        self.context['content'] = content
-        self.context['image_count'] = range(content.images.count())
-
-        return render(request,
-                      'content.html',
-                      self.context)
+#     def post(self, request):
+#         """
+#         """
+#
+#         content_form = ContentForm(request.POST, request.FILES)
+#
+#         if not content_form.is_valid():
+#             # return error
+#             pass
+#
+#         content_form.clean()
+#         content = Content()
+#         content.category = content_form.cleaned_data.get('category')
+#         content.title = content_form.cleaned_data.get('title')
+#         content.description = content_form.cleaned_data.get('description')
+#
+#         img_up = content_form.cleaned_data.get('images')
+#         img_temp = NamedTemporaryFile(delete=True)
+#         for chunk in img_up.chunks():
+#             img_temp.write(chunk)
+#
+#         content_image = ContentImage()
+#         content_image.image = File(img_temp)
+#         content_image.name = img_up.name
+#         content_image.save()
+#
+#         content.save()
+#
+#         content.images.add(content_image)
+#
+#         content.save()
+#
+#
+#         self.context['content'] = content
+#         self.context['image_count'] = range(content.images.count())
+#
+#         return render(request,
+#                       'content.html',
+#                       self.context)
 
 class ContentUpdateView(View):
     pass

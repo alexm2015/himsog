@@ -1,18 +1,147 @@
-{% extends "base.html" %}
+{% extends 'base.html' %}
+{% load static %}
+{% load widget_tweaks %}
 
 {% block page_css %}
-<link href="/static/css/content.css" rel="stylesheet">
-{{ form.media }}
+<style type="text/css">
+    .row {
+        margin-top: 1rem;
+    }
+
+    .add-row {
+
+    }
+
+    .delete-row {
+        font-size: 2.25rem;
+        float: right;
+        display: block;
+        /*background:url({{ MEDIA_URL }}images/delete.png) no-repeat left center;*/
+        /*width:16px;*/
+        /*height:16px;*/
+    }
+
+</style>
 {% endblock %}
 
 {% block main %}
-<form method="POST" enctype="multipart/form-data">
-{% csrf_token %}
-{{ form.as_p }}
-<button>Add</button>
-</form>
+<div class="container">
+    <h3>Add Your Content (Food and Services)</h3>
+    <form method="POST" enctype="multipart/form-data">
+        {% csrf_token %}
 
+        <hr>
+        <h4>Overview</h4>
+        <div class="form-group">
+            <label for="{{ overview_form.title.auto_id }}">Title</label>    
+            {{ overview_form.title | add_class:"form-control" | attr:"placeholder:Title" }}    
+        </div>
+
+        <div class="form-group">
+            <label for="{{ overview_form.about.auto_id }}">About</label>
+            {{ overview_form.about | add_class:"form-control" | attr:"placeholder:Enter Text Here" }}
+        </div>
+
+        <div class="form-group">
+            <div class="row">
+                <div class="col-md-1">
+                    <label for="{{ overview_form.address.auto_id }}">Address</label>
+                </div>
+                <div class="col-md-11">
+                    {{ overview_form.address | add_class:"form-control" | attr:"placeholder:Address" }}
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-1">
+                    <label for="{{ overview_form.phone.auto_id }}">Phone</label>
+                </div>
+                <div class="col-md-5">
+                    {{ overview_form.phone | add_class:"form-control" | attr:"placeholder:Phone" }}
+                </div>
+                <div class="col-md-1">
+                    <label for="{{ overview_form.email.auto_id }}">Email</label>
+                </div>
+                <div class="col-md-5">
+                    {{ overview_form.email | add_class:"form-control" | attr:"placeholder:Email" }}
+                </div>
+            </div>
+        </div>
+
+        <hr>
+        
+        {{ menu_formset.management_form }}
+        <h4>Menu Items</h4>
+        <div class="form-group">
+            <table id="menu-table" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">Name</th>
+                        <th scope="col">Description</th>
+                        <th scope="col">Price</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for form in menu_formset %}
+                    <tr>
+                        <td>{{ form.item | add_class:"form-control" }}</td>
+                        <td>{{ form.description | add_class:"form-control" }}</td>
+                        <td>
+                            <div class="col-md-8">
+                                {{ form.price | add_class:"form-control" }}
+                            </div>
+                            
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <hr>
+        {{ photo_formset.management_form }}
+        <h4>Photos</h4>
+        <div class="form-group">
+            <table id="photo-table" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">File</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for form in photo_formset %}
+                    <tr>
+                        <td>
+                            <div class="col-md-11">
+                                {{ form.file | add_class:"form-control" }}
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+
+        <button type="submit" class="btn btn-default" style="float: right;">Submit</button>
+
+    </form>
+</div>
 {% endblock %}
 
 {% block page_js %}
+<script type="text/javascript" src="{% static 'ext/jquery/jquery.formset.js' %}"></script>
+<script type="text/javascript">
+    $(document).ready(function(){
+        $('#menu-table tbody tr').formset({
+            'prefix': '{{ menu_formset.prefix }}',
+            'addText': '<button type="submit" class="btn btn-default btn-small">Add Another Item</button>',
+            'deleteText' : '<p><span class="glyphicon glyphicon-remove text-danger"></span></p>',
+        })
+
+        $('#photo-table tbody tr').formset({
+            'prefix' : '{{ photo_formset.prefix }}',
+            'addText' : '<button type="submit" class="btn btn-default btn-small">Add Another Photo</button>', 
+            'deleteText': '<p><span class="glyphicon glyphicon-remove text-danger"></span></p>'
+        })
+    })
+</script>
 {% endblock %}

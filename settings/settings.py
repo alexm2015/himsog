@@ -46,7 +46,8 @@ DEFAULT_APPS = [
 
 EXTERNAL_APPS = [
     'star_ratings',
-    'tinymce'
+    'tinymce',
+    'widget_tweaks'
 ]
 
 APPS = [
