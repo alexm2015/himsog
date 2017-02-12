@@ -10,6 +10,9 @@ from himsog.models import Content
 import json
 
 import pprint
+from el_pagination.views import AjaxListView
+
+
 class Landing(View):
 
     def get(self, request):
@@ -17,11 +20,25 @@ class Landing(View):
         return render(request, 'landing.html') 
 
 
-class Home(View):
+# class Home(View):
 
-    def get(self, request, category_slug=None):
-        context_dict = dict()
-        return render(request, 'demo.html')   
+#     def get(self, request, category_slug=None):
+#         context_dict = dict()
+#         return render(request, 'home.html')   
+
+class Home(AjaxListView):
+    context_object_name = "content_list"
+    template_name = "home.html"
+    page_template = "home_page.html"
+
+    def get_queryset(self):
+        return Content.objects.all()
+
+
+def Feeds(View):
+
+    def get(self, request):
+        pass
 
 
 def get_contents(request):

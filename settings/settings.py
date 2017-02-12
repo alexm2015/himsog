@@ -46,7 +46,8 @@ DEFAULT_APPS = [
 
 EXTERNAL_APPS = [
     'star_ratings',
-    'tinymce'
+    'tinymce',
+    'el_pagination'
 ]
 
 APPS = [
@@ -86,7 +87,7 @@ ROOT_URLCONF = 'settings.urls'
 #         'APP_DIRS': True,
 #         'OPTIONS': {
 #             'context_processors': [
-#                 'django.template.context_processors.debug',
+#                 'django.  .context_processors.debug',
 #                 'django.template.context_processors.request',
 #                 'django.contrib.auth.context_processors.auth',
 #                 'django.contrib.messages.context_processors.messages',
@@ -105,6 +106,7 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'django.core.context_processors.request',
             ],
             'debug': DEBUG,
         },

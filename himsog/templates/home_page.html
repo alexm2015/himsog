@@ -1,0 +1,7 @@
+{% load el_pagination_tags %}
+
+{% lazy_paginate 20,10 content_list %}
+{% for content in content_list %}
+    {{content.title}} </br>
+{% endfor %}
+{% show_more "Show More" %}
