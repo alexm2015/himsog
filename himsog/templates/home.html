@@ -3,30 +3,24 @@
 
 {% block main %}
 
-<h2>Entries:</h2>
 {% include page_template %}
 
 {% endblock %}
 
 {% block page_css %}
-/*
-#container {
-  background: #DDD;
-  max-width: 1000px;
-}
-*/
-.item {
-  width: 200px;
-  float: left;
+.grid {
+    margin: 0 auto;
 }
 
-.item img {
+.grid-item {
+    width: 300px;
+    float: left;
+}
+
+.grid-item img {
   display: block;
   width: 100%;
 }
-
-
-button { font-size: 18px; } 
 
 {% endblock %}
 
@@ -37,7 +31,42 @@ button { font-size: 18px; }
 <script src="/static/ext/el-pagination/js/el-pagination.js"></script>
 
 <script>
-$.endlessPaginate({paginateOnScroll: true,
-                   paginateOnScrollMargin: 20});
+
+$(document).ready(function() {
+
+    var $container = $(".grid").masonry({
+        itemSelector : ".grid-item",
+        columnWidth: 300,
+        gutter: 25,
+        fitWidth: true
+    });
+
+    $container.imagesLoaded().progress(function() {
+        $container.masonry("layout");
+    });
+
+    function reloadFeeds(context, fragment) {
+        var secondGrid = $(".grid").not(":first").html();
+
+        $(".grid").first().append(secondGrid);
+        $(".grid").not(":first").remove();
+
+        var mdata = $container.data("masonry");
+        if (mdata !== undefined) {
+            mdata.reloadItems();
+            mdata.layout();
+        }
+
+        $container.imagesLoaded().progress(function() {
+            $container.masonry("layout");
+        });
+    }
+
+    $.endlessPaginate({paginateOnScroll: true,
+                       paginateOnScrollMargin: 20,
+                       onCompleted: reloadFeeds});
+
+});
+
 </script>
 {% endblock %}

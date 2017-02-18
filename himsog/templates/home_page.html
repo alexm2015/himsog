@@ -1,7 +1,21 @@
 {% load el_pagination_tags %}
 
 {% lazy_paginate 20,10 content_list %}
+<div class="grid">
 {% for content in content_list %}
-    {{content.title}} </br>
+    <div class="grid-item">
+    	<div class="panel panel-default">
+    		<div class="panel-body">
+    			<img src="http://images.shape.mdpcdn.com/sites/shape.com/files/styles/slide/public/salad-slide_1.jpgsalad-slide_1_0.jpg" alt="image unavailable" />
+    			</br>
+    			<h4><b>{{content.title}}</b></h4>
+    			</br>
+    			<p style="text-overflow: ellipsis; white-space: nowrap; overflow: hidden">
+    				{{content.content1}}
+    			</p>
+    		</div>
+    	</div>
+    </div>
 {% endfor %}
+</div>
 {% show_more "Show More" %}
