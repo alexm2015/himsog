@@ -1,3 +1,4 @@
+from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
 from django.views.generic import View
 from django.shortcuts import render
@@ -10,9 +11,9 @@ class Landing(View):
 
     def get(self, request):
         context_dict = dict()
-        return render(request, 'landing.html') 
+        return render(request, 'landing.html')
 
-
+# @login_required
 class Home(View):
 
     def get(self, request):
@@ -26,4 +27,4 @@ class Home(View):
         #     context_dict['contents'] = Content.objects.all()
         #     context_dict['active'] = 'All'
 
-        return render(request, 'home.html') 
+        return render(request, 'home.html')

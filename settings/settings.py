@@ -41,13 +41,14 @@ DEFAULT_APPS = [
     # greater consistency between gunicorn and `./manage.py runserver`. See:
     # http://whitenoise.evans.io/en/stable/django.html#using-whitenoise-in-development
     'whitenoise.runserver_nostatic',
-    'django.contrib.staticfiles'
+    'django.contrib.staticfiles',
 ]
 
 EXTERNAL_APPS = [
     'star_ratings',
     'tinymce',
-    'widget_tweaks'
+    'widget_tweaks',
+    'social_django',
 ]
 
 APPS = [
@@ -76,6 +77,7 @@ MIDDLEWARE_CLASSES = [
     'django.contrib.auth.middleware.SessionAuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'social_django.middleware.SocialAuthExceptionMiddleware',
 ]
 
 ROOT_URLCONF = 'settings.urls'
@@ -106,6 +108,8 @@ TEMPLATES = [
                 'django.template.context_processors.request',
                 'django.contrib.auth.context_processors.auth',
                 'django.contrib.messages.context_processors.messages',
+                'social_django.context_processors.backends',
+                'social_django.context_processors.login_redirect',
             ],
             'debug': DEBUG,
         },
@@ -125,6 +129,18 @@ DATABASES = {
     }
 }
 
+# Authentication
+EXTERNAL_AUTH_BACKENDS = (
+    'social_core.backends.github.GithubOAuth2',
+    'social_core.backends.twitter.TwitterOAuth',
+    'social_core.backends.facebook.FacebookOAuth2',
+)
+
+DJANGO_AUTH_BACKENDS = (
+    'django.contrib.auth.backends.ModelBackend',
+)
+
+AUTHENTICATION_BACKENDS = EXTERNAL_AUTH_BACKENDS + DJANGO_AUTH_BACKENDS
 
 # Password validation
 # https://docs.djangoproject.com/en/1.9/ref/settings/#auth-password-validators
@@ -190,3 +206,13 @@ STAR_RATINGS_RANGE = 5
 
 # Disable changing ratings after setting
 STAR_RATINGS_RERATE = False
+
+# social-django settings
+LOGIN_URL = 'login'
+LOGOUT_URL = 'logout'
+LOGIN_REDIRECT_URL = 'home'
+
+# Facebook App ID
+SOCIAL_AUTH_FACEBOOK_KEY = '1139408786174095'
+# Facebook App Secret
+SOCIAL_AUTH_FACEBOOK_SECRET = 'ad71f06fe245bbe1f7fab9f7a759bcc2'
